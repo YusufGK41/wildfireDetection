@@ -1,0 +1,6 @@
+Train_Data/
+Test_Data/
+__pycache__/
+*.pyc
+*.h5
+.DS_Store
