@@ -2,20 +2,21 @@
 
 CNN (Convolutional Neural Network) kullanarak orman yangınlarını otomatik tespit eden bir derin öğrenme projesi.
 
-**Geliştirici:** Yusuf Gürkan  
-**Ders:** Sinir Ağları Final Projesi
+**Geliştirici:** Yusuf Gürkan
+**Ders:** Sinir Ağları Final Projesi  
+**Tarih:** 8 Ocak 2026
 
 ---
 
 ## 📋 İçindekiler
 
-- [Proje Hakkında](#proje-hakkında)
-- [Veri Seti](#veri-seti)
-- [Model Mimarisi](#model-mimarisi)
-- [Kurulum](#kurulum)
-- [Kullanım](#kullanım)
-- [Sonuçlar](#sonuçlar)
-- [Proje Yapısı](#proje-yapısı)
+- [Proje Hakkında](#-proje-hakkında)
+- [Veri Seti](#-veri-seti)
+- [Model Mimarisi](#️-model-mimarisi)
+- [Kurulum](#-kurulum)
+- [Kullanım](#-kullanım)
+- [Sonuçlar](#-sonuçlar)
+- [Proje Yapısı](#-proje-yapısı)
 
 ---
 
