@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # 🔥 Orman Yangını Tespit Sistemi
 
 CNN (Convolutional Neural Network) kullanarak orman yangınlarını otomatik tespit eden bir derin öğrenme projesi.
