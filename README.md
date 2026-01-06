@@ -1,10 +1,11 @@
+<<<<<<< HEAD
+
 # 🔥 Orman Yangını Tespit Sistemi
 
 CNN (Convolutional Neural Network) kullanarak orman yangınlarını otomatik tespit eden bir derin öğrenme projesi.
 
-**Geliştirici:** [Adınız Soyadınız]  
-**Ders:** Sinir Ağları Final Projesi  
-**Tarih:** Ocak 2026
+**Geliştirici:** Yusuf Gürkan  
+**Ders:** Sinir Ağları Final Projesi
 
 ---
 
@@ -63,8 +64,6 @@ dataset/
 | Fire (Yangın Var)    | ~2,300     | ~25     | ~2,325     |
 | No Fire (Yangın Yok) | ~2,300     | ~25     | ~2,325     |
 | **Toplam**           | **~4,600** | **~50** | **~4,650** |
-
-**Not:** Orijinal veri setinde 15,000+ görüntü vardı ancak eğitim süresini optimize etmek için rastgele örnekleme yapılarak azaltıldı.
 
 ### Veri Ön İşleme
 
@@ -145,7 +144,7 @@ Non-trainable params: 0
 ### 1. Repository'yi Klonlayın
 
 ```bash
-git clone https://github.com/[KULLANICI_ADIN]/wildfireDetection.git
+git clone https://github.com/YusufGK41/wildfireDetection.git
 cd wildfireDetection
 ```
 
@@ -385,26 +384,3 @@ Bu proje, Sinir Ağları dersi final projesi kapsamında geliştirilmiştir.
 ## 📝 Lisans
 
 Bu proje eğitim amaçlı geliştirilmiştir.
-
----
-
-## 🙏 Teşekkürler
-
-- Kaggle topluluğuna veri seti için
-- Mohnish Sai Prasad'a veri setini paylaştığı için
-- [Hoca Adı] hocamıza rehberlik için
-
----
-
-## 📞 İletişim
-
-Proje hakkında sorularınız için:
-
-- GitHub: [github.com/[KULLANICI_ADIN]]
-- Email: [email@example.com]
-
----
-
-**⭐ Projeyi beğendiyseniz yıldız vermeyi unutmayın!**
-
-**🔥 Orman yangınlarına karşı teknoloji ile mücadele! 🔥**
