@@ -2,7 +2,7 @@
 
 CNN (Convolutional Neural Network) kullanarak orman yangınlarını otomatik tespit eden bir derin öğrenme projesi.
 
-**Geliştirici:** Yusuf Gürkan
+**Geliştirici:** Yusuf Gürkan  
 **Ders:** Sinir Ağları Final Projesi  
 **Tarih:** 8 Ocak 2026
 
@@ -33,6 +33,7 @@ Bu proje, orman yangınlarının erken tespiti için bir görüntü sınıfland�
 - Keras
 - NumPy, Pandas, Matplotlib
 - Anaconda (Environment yönetimi)
+- Flask
 
 ---
 
@@ -143,7 +144,7 @@ Non-trainable params: 0
 ### 1. Repository'yi Klonlayın
 
 ```bash
-git clone https://github.com/YusufGK41/wildfireDetection.git
+git clone https://github.com/[KULLANICI_ADIN]/wildfireDetection.git
 cd wildfireDetection
 ```
 
@@ -223,6 +224,53 @@ Bu script:
    ✅ Temiz resim: 4611
 ✅ Artık eğitime başlayabilirsiniz!
 ```
+
+---
+
+## 🌐 Web Arayüzü (Bonus)
+
+Proje, Flask tabanlı bir web arayüzü ile birlikte gelir. Kullanıcılar web tarayıcısı üzerinden görüntü yükleyerek yangın tespiti yapabilirler.
+
+### Özellikler
+
+- 📤 Sürükle-bırak ile resim yükleme
+- 🔍 Anlık tahmin
+- 📊 Güven skoru gösterimi
+- 🎨 Modern ve kullanıcı dostu arayüz
+
+### Web Sitesini Çalıştırma
+
+```bash
+# Flask'ı kur (ilk seferinde)
+pip install flask
+
+# Web sitesini başlat
+python app.py
+```
+
+Tarayıcıda açın: **http://localhost:5000**
+
+### Ekran Görüntüleri
+
+**Ana Sayfa:**
+
+![Web Arayüzü](https://raw.githubusercontent.com/YusufGK41/wildfireDetection/main/screenshots/web_interface.png)
+
+**Tahmin Sonuçları:**
+
+![Normal Orman - Yangın Yok](https://raw.githubusercontent.com/YusufGK41/wildfireDetection/main/screenshots/no_fire.png)
+
+![Yangın Tespiti](https://raw.githubusercontent.com/YusufGK41/wildfireDetection/main/screenshots/fire_detected.png)
+
+---
+
+## 📊 Web Arayüzü Teknik Detayları
+
+- **Backend:** Flask (Python)
+- **Model:** TensorFlow/Keras (.h5)
+- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+- **Resim İşleme:** PIL/Pillow
+- **API:** RESTful (POST /predict)
 
 ---
 
@@ -311,10 +359,14 @@ wildfireDetection/
 ├── train.py                    # Ana eğitim scripti
 ├── train.ipynb                 # Jupyter Notebook versiyonu
 ├── clean_dataset.py            # Bozuk resim temizleme aracı
+├── app.py                      # Flask web uygulaması
 ├── environment.yml             # Conda environment dosyası
 ├── requirements.txt            # Python gereksinimleri
 ├── README.md                   # Proje dokümantasyonu
 ├── training_history.png        # Eğitim grafikleri
+│
+├── templates/                  # Flask HTML şablonları
+│   └── index.html             # Web arayüzü
 │
 ├── Train_Data/                 # Eğitim veri seti (Kaggle'dan)
 │   ├── Fire/                   # ~2,300 yangın görüntüsü
