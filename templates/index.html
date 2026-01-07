@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔥 Orman Yangını Tespit Sistemi</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2.5em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+      }
+
+      .upload-area {
+        border: 3px dashed #667eea;
+        border-radius: 15px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 20px;
+      }
+
+      .upload-area:hover {
+        background: #f8f9ff;
+        border-color: #764ba2;
+      }
+
+      .upload-area.dragover {
+        background: #e8ebff;
+        border-color: #5568d3;
+      }
+
+      #fileInput {
+        display: none;
+      }
+
+      .upload-icon {
+        font-size: 4em;
+        margin-bottom: 10px;
+      }
+
+      .upload-text {
+        color: #666;
+        font-size: 1.1em;
+      }
+
+      #preview {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      #previewImg {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      #result {
+        margin-top: 30px;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        display: none;
+      }
+
+      .result-fire {
+        background: #ffe5e5;
+        color: #d32f2f;
+        border: 3px solid #d32f2f;
+      }
+
+      .result-nofire {
+        background: #e8f5e9;
+        color: #388e3c;
+        border: 3px solid #388e3c;
+      }
+
+      .confidence {
+        font-size: 0.8em;
+        margin-top: 10px;
+        opacity: 0.8;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #999;
+        font-size: 0.9em;
+      }
+
+      .footer a {
+        color: #667eea;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔥 Yangın Tespit</h1>
+      <p class="subtitle">CNN ile Orman Yangını Tespiti</p>
+
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">
+          Resim seçmek için tıklayın veya sürükleyin
+        </div>
+        <input type="file" id="fileInput" accept="image/*" />
+      </div>
+
+      <div id="preview"></div>
+
+      <button id="predictBtn" disabled>Tahmin Et</button>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Model analiz ediyor...</p>
+      </div>
+
+      <div id="result"></div>
+
+      <div class="footer">
+        Sinir Ağları Final Projesi - 2026<br />
+        <a href="https://github.com/YusufGK41/wildfireDetection" target="_blank"
+          >GitHub</a
+        >
+      </div>
+    </div>
+
+    <script>
+      const uploadArea = document.getElementById("uploadArea");
+      const fileInput = document.getElementById("fileInput");
+      const preview = document.getElementById("preview");
+      const predictBtn = document.getElementById("predictBtn");
+      const result = document.getElementById("result");
+      const loading = document.getElementById("loading");
+
+      let selectedFile = null;
+
+      // Upload area click
+      uploadArea.addEventListener("click", () => fileInput.click());
+
+      // File selection
+      fileInput.addEventListener("change", (e) => {
+        handleFile(e.target.files[0]);
+      });
+
+      // Drag and drop
+      uploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        uploadArea.classList.add("dragover");
+      });
+
+      uploadArea.addEventListener("dragleave", () => {
+        uploadArea.classList.remove("dragover");
+      });
+
+      uploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove("dragover");
+        handleFile(e.dataTransfer.files[0]);
+      });
+
+      function handleFile(file) {
+        if (!file || !file.type.startsWith("image/")) {
+          alert("Lütfen bir resim dosyası seçin!");
+          return;
+        }
+
+        selectedFile = file;
+
+        // Preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          preview.innerHTML = `<img id="previewImg" src="${e.target.result}" alt="Preview">`;
+          predictBtn.disabled = false;
+          result.style.display = "none";
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // Predict button
+      predictBtn.addEventListener("click", async () => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        // Show loading
+        loading.style.display = "block";
+        result.style.display = "none";
+        predictBtn.disabled = true;
+
+        try {
+          const response = await fetch("/predict", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          // Hide loading
+          loading.style.display = "none";
+          predictBtn.disabled = false;
+
+          if (data.error) {
+            alert("Hata: " + data.error);
+            return;
+          }
+
+          // Show result
+          result.style.display = "block";
+
+          if (data.result.includes("VAR")) {
+            result.className = "result-fire";
+          } else {
+            result.className = "result-nofire";
+          }
+
+          result.innerHTML = `
+                    ${data.result}
+                    <div class="confidence">Güven: ${data.confidence}</div>
+                `;
+        } catch (error) {
+          loading.style.display = "none";
+          predictBtn.disabled = false;
+          alert("Bir hata oluştu: " + error.message);
+        }
+      });
+    </script>
+  </body>
+</html>
