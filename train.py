@@ -156,7 +156,7 @@ def plot_training_history(history, save_path='training_history.png'):
     plt.tight_layout()
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"\n📊 Grafikler kaydedildi: {save_path}")
-    plt.show()
+    # plt.show() kaldırıldı - GUI olmadan çalışması için
 
 # ===============================
 # 6. SONUÇLARI KAYDETME
